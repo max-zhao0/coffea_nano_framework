@@ -1,0 +1,10 @@
+DATA:
+  '2024':
+    Muon0:
+      DAS:
+        - /Muon0/Run2024C-MINIv6NANOv15-v1/NANOAOD
+      xroot: root://eos.cms.rcac.purdue.edu//
+    Muon1:
+      DAS:
+        - /Muon1/Run2024C-MINIv6NANOv15-v1/NANOAOD
+      xroot: root://eos.cms.rcac.purdue.edu//

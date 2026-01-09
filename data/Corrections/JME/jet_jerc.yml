@@ -1,0 +1,21 @@
+jet_jerc:
+  2022preEE:
+    file: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-22CDSep23-Summer22-NanoAODv12/2025-09-23/jet_jerc.json.gz"
+    data_correction: "Summer22_22Sep2023_RunCD_V3_DATA"
+    mc_correction: "Summer22_22Sep2023_V3_MC"
+  2022postEE:
+    file: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-22EFGSep23-Summer22EE-NanoAODv12/2025-10-07/jet_jerc.json.gz"
+    data_correction: "Summer22EE_22Sep2023_Run<run>_V3_DATA"
+    mc_correction: "Summer22EE_22Sep2023_V3_MC"
+  2023preBPix:
+    file: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-23CSep23-Summer23-NanoAODv12/2025-10-07/jet_jerc.json.gz"
+    data_correction: "Summer23Prompt23_V2_DATA"
+    mc_correction: "Summer23Prompt23_V2_MC"
+  2023postBPix:
+    file: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-23DSep23-Summer23BPix-NanoAODv12/2025-10-07/jet_jerc.json.gz"
+    data_correction: "Summer23BPixPrompt23_V3_DATA"
+    mc_correction: "Summer23BPixPrompt23_V3_MC"
+  '2024':
+    file: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/2025-12-02/jet_jerc.json.gz"
+    data_correction: "Summer24Prompt24_V2_DATA"
+    mc_correction: "Summer24Prompt24_V2_MC"

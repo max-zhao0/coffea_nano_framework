@@ -1,0 +1,15 @@
+[workspace]
+channels = ["conda-forge"]
+name = "coffea_nano_framework"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+coffea = ">=2025.12.0,<2026"
+uncertainties = ">=3.2.3,<4"
+root = ">=6.36.6,<7"
+python = ">=3.13.11,<3.14"
+ipython = ">=9.8.0,<10"
+fsspec-xrootd = ">=0.5.1,<0.6"

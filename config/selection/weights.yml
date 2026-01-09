@@ -1,0 +1,12 @@
+Weights:
+  eventWeight:
+    - "weightGenerator"
+    - "puWeight"
+    - "lep.electronIDWeight"
+    - "lbar.electronIDWeight"
+    - "lep.muonIDWeight"
+    - "lbar.muonIDWeight"
+    - "lep.muonIsoWeight"
+    - "lbar.muonIsoWeight"
+  trueLevelWeight:
+    - "weightGenerator"

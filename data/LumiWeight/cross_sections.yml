@@ -1,0 +1,11 @@
+CrossSections:
+  TT: 923.6 # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO
+  TTtoLNu2Q: 407.4
+  TTto2L2Nu: 98.88
+  TTto4Q: 419.69 # 0.45441*923.6
+  TWminus: 43.95 # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SingleTopRefXsec#tW_channel
+  TWminusto2L2Nu: 4.71 # Calibration Excel
+  TWminustoSemilepton: 19.4 # Calibration Excel
+  TbarWplus: 43.95 # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SingleTopRefXsec#tW_channel
+  TbarWplusto2L2Nu: 4.71 # Calibration Excel
+  TbarWplustoSemilepton: 19.4 # Calibration Excel
