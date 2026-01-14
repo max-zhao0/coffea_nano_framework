@@ -79,6 +79,9 @@ def main() -> None:
 
     status_path = fw_config["fw_dir"] + "/selection_status/" + \
         args.input.split("/")[-1].replace(".root", "_status.out")
+    status_path = pathlib.Path(status_path)
+    status_path.parent.mkdir(parents=True, exist_ok=True)
+    
     tree_cfg["status_file"] = open(status_path, "w", encoding="utf-8")
     tree_cfg["status_file"].write(f"Processing file: {args.input}\n")
 
