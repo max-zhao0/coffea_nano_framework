@@ -8,5 +8,11 @@ Weights:
     - "lbar.muonIDWeight"
     - "lep.muonIsoWeight"
     - "lbar.muonIsoWeight"
+    - "lep.tauEFakeWeight"
+    - "lbar.tauEFakeWeight"
+    - "lep.tauMuFakeWeight"
+    - "lbar.tauMuFakeWeight"
+    - "lep.tauJetFakeWeight"
+    - "lbar.tauJetFakeWeight"
   trueLevelWeight:
     - "genWeight"

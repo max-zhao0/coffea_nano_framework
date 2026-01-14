@@ -11,6 +11,7 @@ import corrections.JME as JME
 import corrections.LUM as LUM
 import corrections.EGM as EGM
 import corrections.MUO as MUO
+import corrections.TAU as TAU
 
 class Selector(SelectionProcessor):
     """Processor for dilepton ttbar event selection and tree creation."""
@@ -73,14 +74,24 @@ class Selector(SelectionProcessor):
 
         ## Tau selection
         ## correction
-        # events = TAU.tau_corr(events, self.cfg)
+        events = TAU.tau_sf_corr(events,
+                            working_points={
+                                "e_to_tau": "Tight",
+                                "mu_to_tau": "Tight",
+                                "jet_to_tau": "Tight"
+                            },
+                            cfg=self.cfg,
+                            dependency="pt"
+                            )
         tau = events.Tau
         # Pt cut
         tau = tau[tau.pt >= 25.0]
         # Eta cut
         tau = tau[np.abs(tau.eta) <= 2.5]
         # ID cut
-        #
+        tau = tau[tau.idDeepTau2018v2p5VSe >= 6] # Tight
+        tau = tau[tau.idDeepTau2018v2p5VSmu >= 4] # Tight
+        tau = tau[tau.idDeepTau2018v2p5VSjet >= 6] # Tight
         # dz cut
         tau = tau[np.abs(tau.dz) <= 0.02]
 
@@ -111,10 +122,12 @@ class Selector(SelectionProcessor):
 
         ## jetsAK4 selection
         jets = events.Jet
-        # Pt cut
-        jets = jets[jets.pt > 30.0]
-        # Eta cut
-        jets = jets[np.abs(jets.eta) < 2.5]
+        # Remove Lepton Overlap
+        jets_idx = ak.local_index(jets.pt)
+        print(jets_idx)
+        lep_mask = ~(jets_idx == events.lep.jetIdx)
+        lbar_mask = ~(jets_idx == events.lbar.jetIdx)
+        jets = jets[lep_mask & lbar_mask]
         # ID selection
         if "jetId" in jets.fields:
             # Following JME recommendations for jet ID
@@ -129,6 +142,12 @@ class Selector(SelectionProcessor):
             jets = jets[mask_lepveto]
         else:
             jets = JME.jet_id(jets, "AK4PUPPI_TightLeptonVeto", self.cfg)
+        # jet energy correction
+        jets = JME.jet_jerc(events, jets, self.cfg)
+        # Pt cut
+        jets = jets[jets.corr_pt > 30.0]
+        # Eta cut
+        jets = jets[np.abs(jets.eta) < 2.5]
         # # cleaning cut
         # jets = jets[
         #     (jets.DeltaR_lep > 0.4) & (jets.DeltaR_lbar > 0.4)
@@ -226,11 +245,19 @@ class Selector(SelectionProcessor):
             parent="PrimaryVertex"
         )
 
+        # step4
+        self.add_selection_step(
+            step_label="JetMultiplicity",
+            mask=(ak.num(events.Jet_selected, axis=1) >= 2),
+            parent="LeptonInvariantMass"
+        )
+
         # self.create_cutflow_histograms(events, step7)
 
         self.make_snapshot(events, "METFilters", step_name="stepMET")
         self.make_snapshot(events, "PrimaryVertex", step_name="stepPV")
         self.make_snapshot(events, "LeptonInvariantMass", step_name="stepLepInvMass")
+        self.make_snapshot(events, "JetMultiplicity", step_name="stepJetMult")
 
         return events
 

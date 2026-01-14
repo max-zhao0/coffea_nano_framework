@@ -63,8 +63,8 @@ def btagging(events, jets_field, tagger, working_point, cfg, correction_type="sh
 
     if cfg["isData"] == "True":
         events = add_to_obj(
-            events, jets_field, {'bShapeWeight': ak.ones_like(jets.Pt),
-                                'bKinfFitWeight': ak.ones_like(jets.Pt)}
+            events, jets_field, {'bShapeWeight': ak.ones_like(jets.pt),
+                                'bKinfFitWeight': ak.ones_like(jets.pt)}
         )
     else:
         score = jets[tagger_fields[tagger]]
@@ -73,7 +73,7 @@ def btagging(events, jets_field, tagger, working_point, cfg, correction_type="sh
         match correction_type:
             case "shape":
                 weights = btag_shape.evaluate(
-                    "central", jets.hadronFlavour, np.abs(jets.Eta), jets.Pt, score
+                    "central", jets.hadronFlavour, np.abs(jets.eta), jets.pt, score
                 )
                 events = add_to_obj(
                     events, jets_field, {'bShapeWeight': ak.where(
@@ -83,7 +83,7 @@ def btagging(events, jets_field, tagger, working_point, cfg, correction_type="sh
                 )
             case "kinfit":
                 weights = btag_shape.evaluate(
-                    "central", working_point, jets.hadronFlavour, np.abs(jets.Eta), jets.Pt
+                    "central", working_point, jets.hadronFlavour, np.abs(jets.eta), jets.pt
                 )
                 events = add_to_obj(
                     events, jets_field, {'bKinfFitWeight': ak.where(

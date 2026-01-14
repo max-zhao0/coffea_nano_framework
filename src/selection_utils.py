@@ -225,10 +225,19 @@ def make_snapshot(events, structure, empty_reco=False):
             # Add entire collection
             field = value[:-1]
             if field in events.fields:
-                if empty_reco and "gen" not in field:
-                    minitree[key] = ak.values_astype(ak.ones_like(events["event"]), float) * -999
-                else:
-                    minitree[key] = events[field]
+                saved_obj = {}
+                for subfield in events[field].fields:
+                    if len(str(events[field][subfield].type).split("* var")) > 2:
+                        print(f"WARNING: Subfield {subfield} in {field} has more than 2 var levels. Skipping...")
+                        continue
+                    if empty_reco and "gen" not in field:
+                        saved_obj[subfield] = ak.values_astype(
+                            ak.ones_like(events["event"]), float) * -999
+                    else:
+                        saved_obj[subfield] = events[field][subfield]
+                minitree[key] = ak.zip(saved_obj)
+            else:
+                print(f"WARNING: Field {field} not found in events.")
         else:
             entry = value.split(".")
             entry.append(None)
